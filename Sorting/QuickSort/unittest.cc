@@ -1,14 +1,12 @@
 #include "answer.h"
 #include "gtest/gtest.h"
 
-/*
 TEST(QuickSort, Test1) {
 	vector<int> a, e;
 	a.push_back(1);
 	e.push_back(1);
 	EXPECT_EQ(e, QuickSort::sort(a));
 }
-*/
 
 TEST(QuickSort, Test2) {
 	vector<int> a, e;

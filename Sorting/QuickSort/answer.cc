@@ -26,7 +26,7 @@ void swap(int &a, int &b) {
 // return index
 int findl(vector<int> &a, int fromindex, int endindex, int pip) {
 	int i;
-	for (i = fromindex; i < endindex; i++) {
+	for (i = fromindex; i <= endindex; i++) {
 		if (a[i] >= pip) break;
 	}
 	return i;
@@ -41,28 +41,37 @@ int findr(vector<int> &a, int fromindex, int startindex, int pip) {
 	return i;
 }
 
-vector<int> QuickSort::sort(vector<int> a) {
-	int pip;
-	unsigned int i, j;
+void sort_internal(vector<int> &a, int startindex, int endindex) {
+	int i = startindex;
+	int j = endindex;
 
-	pip = a[a.size() / 2 - 1];
+	cout << "sort " << i << ".." << j << endl;
+	if (j - i < 1) return;
+
+	int pip = a[(j - i) / 2];
 
 	cout << "pip=" << pip << endl;
-	show_vector(a);
-
-	i = 0;
-	j = a.size() - 1;
 
 	do {
-		i = findl(a, i, a.size(), pip);
+		i = findl(a, i, endindex, pip);
 		j = findr(a, j, 0, pip);
 
 		cout << i << "<=>" << j << endl;
 		if (i > j) break;
 
+		cout << "swap!" << endl;
 		swap(a[i], a[j]);
 		show_vector(a);
 	} while (i < j);
+
+	sort_internal(a, startindex, i - 1);
+	sort_internal(a, i + 1, endindex);
+	// xxx
+}
+
+vector<int> QuickSort::sort(vector<int> a) {
+	show_vector(a);
+	sort_internal(a, 0, a.size() - 1);
 
 	return a;
 }
