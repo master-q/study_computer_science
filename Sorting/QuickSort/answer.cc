@@ -7,12 +7,15 @@ using namespace std;
 // MarbleDecoration
 // http://community.topcoder.com/stat?c=problem_statement&pm=11287
 
-// for Debug
+//#define DEBUG 1
+
 void show_vector(vector<int> &a) {
+#if DEBUG
 	for (unsigned int i = 0; i < a.size(); i++) {
 		cout << a[i] << ",";
 	}
 	cout << endl;
+#endif
 }
 
 void swap(int &a, int &b) {
@@ -45,28 +48,35 @@ void sort_internal(vector<int> &a, int startindex, int endindex) {
 	int i = startindex;
 	int j = endindex;
 
-	cout << "sort " << i << ".." << j << endl;
+#if DEBUG
+	cout << "#sort " << i << ".." << j << endl;
+#endif
 	if (j - i < 1) return;
 
-	int pip = a[(j - i) / 2];
+	int pip = a[(j - i) / 2 + i];
 
+#if DEBUG
 	cout << "pip=" << pip << endl;
+#endif
 
 	do {
 		i = findl(a, i, endindex, pip);
 		j = findr(a, j, 0, pip);
 
+#if DEBUG
 		cout << i << "<=>" << j << endl;
+#endif
 		if (i > j) break;
 
+#if DEBUG
 		cout << "swap!" << endl;
+#endif
 		swap(a[i], a[j]);
 		show_vector(a);
 	} while (i < j);
 
 	sort_internal(a, startindex, i - 1);
 	sort_internal(a, i + 1, endindex);
-	// xxx
 }
 
 vector<int> QuickSort::sort(vector<int> a) {
